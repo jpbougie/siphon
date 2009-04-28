@@ -1,0 +1,39 @@
+@import url("reset.css");
+@import url("text.css");
+
+#items {
+  list-style: none;
+}
+
+#items li {
+  border: 1px solid #aaa;
+  padding: 5px;
+}
+
+#items li.focus {
+  font-size: 2em;
+  background-color: rgb(250, 253, 210);
+}
+
+#items li.focus span.subject{
+  font-size: 1.5em;
+  display: block;
+  font-weight: bold;
+  letter-spacing: -0.1;
+}
+
+#items li.focus div.actions {
+  float: right;
+}
+
+#items li.focus a.accept {
+  color: #36993B;
+  padding-right: 10px;
+}
+#items li.focus a.reject {
+  color: #B81104;
+}
+
+.accepted {
+  background: #D2F8B0;
+}
