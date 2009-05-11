@@ -20,5 +20,12 @@
     .container_12
       #header.grid_12
         %h1 Siphon
+        %h2
+          %span#count 0
+          questions shown |
+          %span#acceptedcount= @accepted.length
+          accepted |
+          %span#rejectedcount= @rejected.length
+          rejected
       #content.grid_12
         %ul#items

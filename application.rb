@@ -69,6 +69,8 @@ class Siphon < Merb::Controller
   end
 
   def index
+    @accepted = Entry.all(:state => :accepted)
+    @rejected = Entry.all(:state => :rejected)
     render
   end
 
@@ -114,7 +116,7 @@ class Siphon < Merb::Controller
         Question.find_by_category(:name => params[:category])
       end
     else
-      Question.find_by_category(:cid => Category.first.cid)
+      Question.find_by_category(:cid => Category.get(1 + rand(Category.count)).cid)
     end
 
     questions['ResultSet']['Question'].each do |q|

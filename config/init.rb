@@ -12,6 +12,7 @@ do_gems_version   = "0.9.11"
 dependency "dm-core", dm_gems_version
 dependency "dm-is-state_machine", dm_gems_version
 dependency "dm-serializer", dm_gems_version
+dependency "dm-aggregates", dm_gems_version
 dependency "data_objects", do_gems_version
 dependency "merb_datamapper", merb_gems_version
 dependency "do_sqlite3", do_gems_version

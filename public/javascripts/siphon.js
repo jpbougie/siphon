@@ -3,18 +3,27 @@ var Siphon = {
     $.getJSON('/load', 
       function(data) {
         $.each(data, function(i, item) {
-          $('#items').append($('<li></li>')
-                                .attr('rel', item.id)
-                                .data('value', item)
-                                .append(Siphon.format(item)))
+          
+          if($('#items li[rel=' + item.id + ']').length == 0) {
+            $('#items').append($('<li></li>')
+                                  .attr('rel', item.id)
+                                  .data('value', item)
+                                  .append(Siphon.format(item)))
+          }
         })
         
         if(!(Siphon.focusedItem().length > 0)) {
           Siphon.focus(data[0].id)
         }
         
+        Siphon.updateCount()
+        
       })
     
+  },
+  
+  updateCount: function() {
+    $('#count').text($('#items li').length)
   },
   
   bindKeys: function() {
@@ -72,6 +81,7 @@ var Siphon = {
     return $('<div></div>').addClass('focused')
                            .append($('<span></span>').addClass('subject').append(item.data))
                            .append($('<span></span>').addClass('state').append(item.state))
+                           .append($('<a>source</a>').addClass('source').attr('href', item.source))
                            .append($('<div></div>').addClass('actions')
                                         .append($('<a>accept</a>').addClass('accept'))
                                         .append($('<a>reject</a>').addClass('reject')))
@@ -84,6 +94,8 @@ var Siphon = {
         elem = Siphon.focusedItem().next('li').attr('rel')
         Siphon.focusedItem().remove()
         Siphon.focus(elem)
+        Siphon.refresh()
+        Siphon.updateCount()
       })
     }
   },
@@ -94,7 +106,15 @@ var Siphon = {
         elem = Siphon.focusedItem().next('li').attr('rel')
         Siphon.focusedItem().remove()
         Siphon.focus(elem)
+        Siphon.refresh()
+        Siphon.updateCount()
       })
+    }
+  },
+  
+  refresh: function() {
+    if($('#items li').length <= 10) {
+      Siphon.load()
     }
   },
   

@@ -8,10 +8,11 @@
 #items li {
   border: 1px solid #aaa;
   padding: 5px;
+  font-size: 1.2em;
 }
 
 #items li.focus {
-  font-size: 2em;
+  font-size: 1.5em;
   background-color: rgb(250, 253, 210);
 }
 
@@ -36,4 +37,17 @@
 
 .accepted {
   background: #D2F8B0;
+}
+
+.state {
+  color: #aaa;
+  padding-right: 10px;
+}
+
+h2 {
+  color: #AAA;
+}
+
+h2 #count, h2 #acceptedcount, h2 #rejectedcount {
+  font-size: 1.5em;
 }
