@@ -27,6 +27,9 @@ var Siphon = {
   },
   
   bindKeys: function() {
+    $('a.accept').live('click', function(a) { Siphon.accept() })
+    $('a.reject').live('click', function(a) { Siphon.reject() })
+    
     $(document).keypress(function(event) {
       switch(String.fromCharCode(event.which)) {
         case 'A':
@@ -83,8 +86,8 @@ var Siphon = {
                            .append($('<span></span>').addClass('state').append(item.state))
                            .append($('<a>source</a>').addClass('source').attr('href', item.source))
                            .append($('<div></div>').addClass('actions')
-                                        .append($('<a>accept</a>').addClass('accept'))
-                                        .append($('<a>reject</a>').addClass('reject')))
+                                        .append($('<a href="#">accept</a>').addClass('accept'))
+                                        .append($('<a href="#">reject</a>').addClass('reject')))
   },
   
   accept: function() {
