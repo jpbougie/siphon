@@ -24,7 +24,7 @@
 }
 
 #items li.focus div.actions {
-  float: right;
+/*  float: right;*/
 }
 
 #items li.focus a.accept {
