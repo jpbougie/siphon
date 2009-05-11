@@ -30,6 +30,7 @@ end
 # Move this to application.rb if you want it to be reloadable in dev mode.
 Merb::Router.prepare do
   match('/').to(:controller => "siphon", :action =>'index')
+  match('/accepted').to(:controller => "siphon", :action => 'accepted')
   match('/load').to(:controller => "siphon", :action =>'load')
   match('/accept').to(:controller => "siphon", :action =>'accept')
   match('/reject').to(:controller => "siphon", :action =>'reject')

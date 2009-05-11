@@ -9,24 +9,18 @@
     %script{ :src => "/javascripts/jquery.js", :type => "text/javascript", :charset => "utf-8" }
     %script{ :src => "/javascripts/siphon.js", :type => "text/javascript", :charset => "utf-8" }
     
-    
-    :javascript
-      $(document).ready(function() {
-        Siphon.load()
-        Siphon.bindKeys()
-      })
-    
   %body
     .container_12
       #header.grid_12
         %h1 Siphon
         %h2
-          %span#count 0
-          questions shown |
-          %span#acceptedcount= @accepted.length
-          %a{:href => "/accepted/"} accepted
+          %a{:href => "/"} filter
           |
+          %span#acceptedcount= @accepted.length
+          accepted |
           %span#rejectedcount= @rejected.length
           rejected
       #content.grid_12
         %ul#items
+          - for item in @accepted
+            %li= item.data

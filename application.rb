@@ -73,6 +73,12 @@ class Siphon < Merb::Controller
     @rejected = Entry.all(:state => :rejected)
     render
   end
+  
+  def accepted
+    @accepted = Entry.all(:state => :accepted)
+    @rejected = Entry.all(:state => :rejected)
+    render
+  end
 
   def load
     entries = Entry.all(:state => :new)
