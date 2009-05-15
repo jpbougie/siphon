@@ -1,6 +1,7 @@
 var Siphon = {
-  load: function() {
-    $.getJSON('/load', 
+  load: function(state) {
+    $('#items').empty()
+    $.getJSON('/load?state=' + state, 
       function(data) {
         $.each(data, function(i, item) {
           
@@ -16,14 +17,17 @@ var Siphon = {
           Siphon.focus(data[0].id)
         }
         
-        Siphon.updateCount()
+        Siphon.updateCount(state)
+        $('.menu a').removeClass("highlight")
+        $('.show_' + state).addClass("highlight")
         
       })
     
   },
   
-  updateCount: function() {
+  updateCount: function(state) {
     $('#count').text($('#items li').length)
+    $('#' + state + '_count').text($('#items li').length)
   },
   
   bindKeys: function() {

@@ -69,25 +69,33 @@ class Siphon < Merb::Controller
   end
 
   def index
+    @new = Entry.all(:state => :new)
     @accepted = Entry.all(:state => :accepted)
     @rejected = Entry.all(:state => :rejected)
     render
   end
   
   def accepted
+    provides :json, :xml
+    
     @accepted = Entry.all(:state => :accepted)
     @rejected = Entry.all(:state => :rejected)
-    render
+    display @accepted
   end
 
   def load
-    entries = Entry.all(:state => :new)
-    
-    if entries.length < 50
-      more
+    if params.has_key? :state
+      entries = Entry.all(:state => params[:state])
+    else
+      entries = Entry.all(:state => :new)
+
+      if entries.length < 50
+        more
+      end
+
+      entries = Entry.all(:state => :new)
     end
     
-    entries = Entry.all(:state => :new)
     
     entries.to_json
   end

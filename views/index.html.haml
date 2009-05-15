@@ -12,21 +12,28 @@
     
     :javascript
       $(document).ready(function() {
-        Siphon.load()
+        Siphon.load("new")
         Siphon.bindKeys()
+        
+        $('.show_new').click(function() { Siphon.load('new'); return false})
+        $('.show_accepted').click(function() { Siphon.load('accepted'); return false})
+        $('.show_rejected').click(function() { Siphon.load('rejected'); return false})
       })
     
   %body
     .container_12
       #header.grid_12
         %h1 Siphon
-        %h2
+        %h2.menu
           %span#count 0
           questions shown |
-          %span#acceptedcount= @accepted.length
-          %a{:href => "/accepted/"} accepted
+          %span#new_count= @new.length
+          %a.show_new{:href => "#"} new
           |
-          %span#rejectedcount= @rejected.length
-          rejected
+          %span#accepted_count= @accepted.length
+          %a.show_accepted{:href => "#"} accepted
+          |
+          %span#rejected_count= @rejected.length
+          %a.show_rejected{:href => "#"} rejected
       #content.grid_12
         %ul#items

@@ -44,10 +44,19 @@
   padding-right: 10px;
 }
 
+.highlight {
+  background-color: rgb(250, 253, 210);
+  text-decoration: none;
+}
+
 h2 {
   color: #AAA;
 }
 
-h2 #count, h2 #acceptedcount, h2 #rejectedcount {
+h2 a {
+  color: #555;
+}
+
+h2 #count, h2 #new_count, h2 #accepted_count, h2 #rejected_count {
   font-size: 1.5em;
 }
