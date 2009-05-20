@@ -16,6 +16,7 @@ dependency "dm-aggregates", dm_gems_version
 dependency "data_objects", do_gems_version
 dependency "merb_datamapper", merb_gems_version
 dependency "do_sqlite3", do_gems_version
+dependency "mperham-memcache-client", :require_as => "memcache"
 
 dependency "httparty"
 
@@ -55,4 +56,5 @@ Merb::Config.use { |c|
   c[:reload_time]         = 0.5
   
   c[:yahoo_appid]         = "S.EKKvHV34EBy7AKc6Mpq.YsBOAUAHcjh4jzLSRI2IasyjPzN7EAasgcEZ2tYR2H"
+  c[:queue]               = "jpbougie.net:22133"
 }

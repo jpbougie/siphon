@@ -1,3 +1,6 @@
+QUEUE = MemCache.new(Merb.config[:queue])
+
+
 class Action
   include DataMapper::Resource
   
@@ -15,6 +18,8 @@ class Entry
   property :refid, String
   property :data, String
   property :source, String
+  
+  after :save, :push_to_queue
   
   is :state_machine, :initial => :new do
     state :new #, :enter => proc {|obj| Action.create(:event => "new", :kind => 'entry', :ref => obj.key)}
@@ -34,6 +39,22 @@ class Entry
       transition :from => :accepted, :to => :rejected
     end
   end
+  
+  def push_to_queue
+    queues = ['stanford', 'shallow']
+    json = {'key' => self.key[0].to_s, 'question' => self.data }.to_json
+    
+    begin
+      queues.each do |q|
+        QUEUE.set(q, json, 0, true)
+      end
+      
+    rescue Exception => e
+      
+    end
+    
+  end
+  
 end
 
 class Category
