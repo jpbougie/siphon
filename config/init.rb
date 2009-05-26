@@ -9,6 +9,12 @@ merb_gems_version = "1.0.11"
 dm_gems_version   = "0.9.11"
 do_gems_version   = "0.9.11"
 
+dependency "merb-core", merb_gems_version 
+dependency "merb-assets", merb_gems_version  
+dependency "merb-action-args", merb_gems_version
+dependency "merb-helpers", merb_gems_version 
+dependency "merb-haml", merb_gems_version
+
 dependency "dm-core", dm_gems_version
 dependency "dm-is-state_machine", dm_gems_version
 dependency "dm-serializer", dm_gems_version
@@ -17,6 +23,7 @@ dependency "data_objects", do_gems_version
 dependency "merb_datamapper", merb_gems_version
 dependency "do_sqlite3", do_gems_version
 dependency "mperham-memcache-client", :require_as => "memcache"
+dependency "couchrest"
 
 dependency "httparty"
 
@@ -35,6 +42,7 @@ Merb::Router.prepare do
   match('/load').to(:controller => "siphon", :action =>'load')
   match('/accept').to(:controller => "siphon", :action =>'accept')
   match('/reject').to(:controller => "siphon", :action =>'reject')
+  match('/couch/:id').to(:controller => "siphon", :action => 'couch')
 
   default_routes
 end
@@ -57,4 +65,5 @@ Merb::Config.use { |c|
   
   c[:yahoo_appid]         = "S.EKKvHV34EBy7AKc6Mpq.YsBOAUAHcjh4jzLSRI2IasyjPzN7EAasgcEZ2tYR2H"
   c[:queue]               = "jpbougie.net:22133"
+  c[:couchdb]             = "http://couch.jpbougie.net/parsing"
 }

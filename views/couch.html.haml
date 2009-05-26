@@ -1,0 +1,44 @@
+%script{ :src => "/javascripts/jquery.js", :type => "text/javascript", :charset => "utf-8" }
+%script{ :src => "/javascripts/jquery-ui-1.7.1.custom.min.js", :type => "text/javascript", :charset => "utf-8" }
+%link{ :rel => 'stylesheet', :href => '/stylesheets/master.css', :media => 'screen', :charset => 'utf-8' }
+%link{ :rel => 'stylesheet', :href => '/stylesheets/jquery-ui-1.7.1.custom.css', :media => 'screen', :charset => 'utf-8' }
+%h3= "Question: #{@entry.data}"
+#tabs
+  %ul
+    %li= link_to "Dashboard", "#dashboard"
+    %li= link_to "Stanford", "#stanford"
+    %li= link_to "Shallow", "#shallow"
+  #dashboard
+    %p
+      Source:
+      = link_to @entry.source, @entry.source
+  #stanford
+    %h4 Tree
+    - p = Proc.new do |node, block|
+      %li
+        %span.label= node["label"]
+        - if node.include? "children"
+          %ul
+            - for child in node["children"]
+              - block.call(child, block)
+  
+    %ul.tree
+      - p.call(@doc["stanford"], p)
+  #shallow
+    %ul
+      - for elem in @doc[:shallow]
+        - if elem.include? "elements"
+          %li.group
+            %span.kind= elem["kind"]
+            %ul.elements
+              -for atom in elem["elements"]
+                %li.atom
+                  %span.kind= atom["kind"]
+                  %span.label= atom["label"]
+        - else
+          %li.atom
+            %span.kind= elem["kind"]
+            %span.label= elem["label"]
+    
+:javascript
+    $('#tabs').tabs()

@@ -31,4 +31,8 @@ namespace :deploy do
     task :stop, :roles => :app do
       run "merb -K all -d -e production -m #{current_path} -c 1 -p 5000 -P #{shared_path}/pids/siphon.%s.pid -u siphon -G siphon"
     end
+    
+    task :start, :roles => :app do
+      run "merb -d -e production -m #{current_path} -c 1 -p 5000 -P #{shared_path}/pids/siphon.%s.pid -u siphon -G siphon"
+    end
 end

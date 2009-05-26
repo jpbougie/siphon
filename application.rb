@@ -40,8 +40,7 @@ class Entry
     end
   end
   
-  def push_to_queue
-    queues = ['stanford', 'shallow']
+  def push_to_queue(queues = ['stanford', 'shallow', 'question'])
     json = {'key' => self.key[0].to_s, 'question' => self.data }.to_json
     
     begin
@@ -141,6 +140,24 @@ class Siphon < Merb::Controller
     entry.to_json
   end
   
+  def couch
+    db = CouchRest.database!(Merb.config[:couchdb])
+    @entry = Entry.get(params[:id])
+    begin
+      @doc = db.get(params[:id])
+    rescue RestClient::ResourceNotFound => e
+      @doc = nil
+    end
+    
+    if !@doc or !is_complete? @doc
+      @entry.push_to_queue
+      sleep 5
+      @doc = db.get(params[:id])
+    end
+    
+    render
+  end
+  
   private
   
   def more
@@ -161,5 +178,13 @@ class Siphon < Merb::Controller
     end
     
   end
+  
+end
+
+def is_complete? doc
+  tags = ["stanford", "shallow", "question"]
+  return false unless doc[:tags].uniq & tags != tags
+  
+  return tags.all? {|t| !doc[t].nil?}
   
 end

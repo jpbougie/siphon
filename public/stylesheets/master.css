@@ -60,3 +60,52 @@ h2 a {
 h2 #count, h2 #new_count, h2 #accepted_count, h2 #rejected_count {
   font-size: 1.5em;
 }
+
+#shallow ul {
+  list-style: none;
+}
+
+#shallow ul > li.group {
+  border: 1px solid #666;
+  border-top: 0;
+  margin-right: 5px;
+  padding: 3px;
+}
+
+#shallow ul li.atom {
+/*  border-top: 1px solid #999;*/
+  background-color: rgb(250, 253, 210);
+  margin: 0 5px;
+}
+
+#shallow ul > li.group > span.kind {
+  font-weight: bold;
+}
+
+#shallow ul span.kind {
+  padding: 0 3px;
+}
+
+#shallow ul li.atom span.kind {
+  font-weight: bold;
+}
+
+#shallow ul li {
+  display: inline;
+  line-height: 2;
+  margin: 0px;
+}
+
+#shallow ul ul {
+  display: inline;
+}
+
+#stanford ul {
+  margin: 0;
+  list-style: none;
+  border-left: 1px solid #888;
+}
+
+#stanford ul li {
+  margin-left: 5px;
+}

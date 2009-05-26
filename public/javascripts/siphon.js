@@ -86,7 +86,7 @@ var Siphon = {
   
   formatFocused: function(item) {
     return $('<div></div>').addClass('focused')
-                           .append($('<span></span>').addClass('subject').append(item.data))
+                           .append($('<span></span>').addClass('subject').append($('<a href="couch/' +  item.id + '" rel="facebox"></a>').facebox().append(item.data)))
                            .append($('<span></span>').addClass('state').append(item.state))
                            .append($('<a>source</a>').addClass('source').attr('href', item.source))
                            .append($('<div></div>').addClass('actions')

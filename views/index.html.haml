@@ -6,9 +6,10 @@
     %meta{ 'http-equiv' => "content-type", :content => "text/html; charset=utf-8" }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/960.css', :media => 'screen', :charset => 'utf-8' }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/master.css', :media => 'screen', :charset => 'utf-8' }
+    %link{ :rel => 'stylesheet', :href => '/facebox/facebox.css', :media => 'screen', :charset => 'utf-8' }
     %script{ :src => "/javascripts/jquery.js", :type => "text/javascript", :charset => "utf-8" }
+    %script{ :src => "/facebox/facebox.js", :type => "text/javascript", :charset => "utf-8" }
     %script{ :src => "/javascripts/siphon.js", :type => "text/javascript", :charset => "utf-8" }
-    
     
     :javascript
       $(document).ready(function() {
@@ -18,6 +19,7 @@
         $('.show_new').click(function() { Siphon.load('new'); return false})
         $('.show_accepted').click(function() { Siphon.load('accepted'); return false})
         $('.show_rejected').click(function() { Siphon.load('rejected'); return false})
+        
       })
     
   %body
