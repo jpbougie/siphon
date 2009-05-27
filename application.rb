@@ -158,6 +158,19 @@ class Siphon < Merb::Controller
     render
   end
   
+  def sweep
+    ids = Entry.all.collect {|e| e.key[0].to_s }
+    db = CouchRest.database!(Merb.config[:couchdb])
+    docs = db.get_bulk(ids)
+    docs[:rows].each do |doc|
+      if doc.include? "error"
+        Entry.get(doc["key"]).push_to_queue
+      elsif !is_complete? doc["doc"]
+        Entry.get(doc["key"]).push_to_queue
+      end
+    end
+  end
+  
   private
   
   def more

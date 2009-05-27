@@ -23,7 +23,7 @@ dependency "data_objects", do_gems_version
 dependency "merb_datamapper", merb_gems_version
 dependency "do_sqlite3", do_gems_version
 dependency "mperham-memcache-client", :require_as => "memcache"
-dependency "couchrest"
+dependency "jpbougie-couchrest", :require_as => "couchrest"
 
 dependency "httparty"
 
