@@ -43,6 +43,7 @@ Merb::Router.prepare do
   match('/accept').to(:controller => "siphon", :action =>'accept')
   match('/reject').to(:controller => "siphon", :action =>'reject')
   match('/couch/:id').to(:controller => "siphon", :action => 'couch')
+  match('/sweep').to(:controller => "siphon", :action => 'sweep')
 
   default_routes
 end
