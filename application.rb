@@ -161,9 +161,10 @@ class Siphon < Merb::Controller
   def sweep
     ids = Entry.all.collect {|e| e.key[0].to_s }
     db = CouchRest.database!(Merb.config[:couchdb])
+    buffer_size = 10
     
-    (0..(ids.length.to_f / 50).ceil - 1).each do |i|
-      docs = db.get_bulk(ids[i * 50..i*50+ 49])
+    (0..(ids.length.to_f / buffer_size).ceil - 1).each do |i|
+      docs = db.get_bulk(ids[i * buffer_size..i * buffer_size + buffer_size - 1])
       docs["rows"].each do |doc|
         if doc.include? "error"
           Entry.get(doc["key"]).push_to_queue
@@ -201,7 +202,7 @@ end
 
 def is_complete? doc
   tags = ["stanford", "shallow", "question"]
-  return false unless doc[:tags].uniq & tags != tags
+  return false unless doc.include? "tags" && doc["tags"].uniq && tags != tags
   
   return tags.all? {|t| !doc[t].nil?}
   
