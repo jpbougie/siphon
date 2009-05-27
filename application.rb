@@ -202,7 +202,7 @@ end
 
 def is_complete? doc
   tags = ["stanford", "shallow", "question"]
-  return false unless doc.include? "tags" && doc["tags"].uniq && tags != tags
+  return false unless doc.include? "tags" and doc["tags"] and doc["tags"].uniq and tags != tags
   
   return tags.all? {|t| !doc[t].nil?}
   
