@@ -164,7 +164,7 @@ class Siphon < Merb::Controller
     
     (0..(ids.length.to_f / 50).ceil - 1).each do |i|
       docs = db.get_bulk(ids[i * 50..i*50+ 49])
-      docs[:rows].each do |doc|
+      docs["rows"].each do |doc|
         if doc.include? "error"
           Entry.get(doc["key"]).push_to_queue
         elsif !is_complete? doc["doc"]
