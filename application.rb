@@ -201,9 +201,9 @@ class Siphon < Merb::Controller
 end
 
 def is_complete? doc
-  tags = ["stanford", "shallow", "question"]
-  return false unless doc.include? "tags" and doc["tags"] and doc["tags"].uniq and tags != tags
+  tags = Set.new("stanford", "shallow", "question")
+  return false unless doc.include? "tags" and doc["tags"] and Set.new(doc["tags"]) == tags
   
-  return tags.all? {|t| !doc[t].nil?}
+  return tags.all? {|t| !doc[t].nil? }
   
 end
