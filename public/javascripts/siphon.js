@@ -21,6 +21,8 @@ var Siphon = {
         $('.menu a').removeClass("highlight")
         $('.show_' + state).addClass("highlight")
         
+        $('a[rel*=facebox]').facebox() 
+        
       })
     
   },
@@ -81,17 +83,21 @@ var Siphon = {
   },
   
   format: function(item) {
-    return item.data
+    return  $('<span></span>').append(item.data)
+                              .append($("<a>inspect</a>").attr("rel", "facebox")
+                                                         .attr("href", "/couch/" + item.id))
   },
   
   formatFocused: function(item) {
     return $('<div></div>').addClass('focused')
-                           .append($('<span></span>').addClass('subject').append($('<a href="couch/' +  item.id + '" rel="facebox"></a>').facebox().append(item.data)))
+                           .append($('<span></span>').addClass('subject').append(item.data))
                            .append($('<span></span>').addClass('state').append(item.state))
                            .append($('<a>source</a>').addClass('source').attr('href', item.source))
                            .append($('<div></div>').addClass('actions')
                                         .append($('<a href="#">accept</a>').addClass('accept'))
-                                        .append($('<a href="#">reject</a>').addClass('reject')))
+                                        .append($('<a href="#">reject</a>').addClass('reject'))
+                                        .append($("<a>inspect</a>").attr("rel", "facebox")
+                                                            .attr("href", "/couch/" + item.id)))
   },
   
   accept: function() {
