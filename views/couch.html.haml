@@ -12,6 +12,14 @@
     %p
       Source:
       = link_to @entry.source, @entry.source
+    %h4 Parse time
+      %table
+        %tr
+          %th Stanford
+          %td= @doc["tasks"]["stanford"]["duration"]
+        %tr
+          %th Shallow parser
+          %td= @doc["tasks"]["stanford"]["duration"]
   #stanford
     %h4 Tree
     - p = Proc.new do |node, block|
