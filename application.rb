@@ -162,17 +162,21 @@ class Siphon < Merb::Controller
     ids = Entry.all.collect {|e| e.key[0].to_s }
     db = CouchRest.database!(Merb.config[:couchdb])
     buffer_size = 10
+    @count = 0
     
     (0..(ids.length.to_f / buffer_size).ceil - 1).each do |i|
       docs = db.get_bulk(ids[i * buffer_size..i * buffer_size + buffer_size - 1])
       docs["rows"].each do |doc|
         if doc.include? "error" # not found
           Entry.get(doc["key"]).push_to_queue
+          @count += 1
         elsif !is_complete? doc["doc"]
           Entry.get(doc["key"]).push_to_queue(doc.missing_parts)
+          @count += 1
         end
       end
       
+      @count.to_s
     end
     
   end
