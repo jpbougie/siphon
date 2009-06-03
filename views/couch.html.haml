@@ -16,10 +16,10 @@
     %table
       %tr
         %th Stanford
-        %td= @doc["tasks"]["stanford"]["duration"]
+        %td= (@doc["tasks"]["stanford"]["duration"].to_f / 1000).to_s + " seconds"
       %tr
         %th Shallow parser
-        %td= @doc["tasks"]["stanford"]["duration"]
+        %td= (@doc["tasks"]["shallow"]["duration"].to_f / 1000).to_s + " seconds"
   #stanford
     %h4 Tree
     - p = Proc.new do |node, block|
