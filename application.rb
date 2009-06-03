@@ -175,10 +175,9 @@ class Siphon < Merb::Controller
           @count += 1
         end
       end
-      
-      @count.to_s
     end
     
+    @count.to_s
   end
   
   private
