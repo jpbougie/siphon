@@ -150,7 +150,7 @@ class Siphon < Merb::Controller
     end
     
     if !@doc or !is_complete? @doc
-      @entry.push_to_queue
+      @entry.push_to_queue(missing_parts(@doc))
       sleep 5
       @doc = db.get(params[:id])
     end
@@ -170,8 +170,8 @@ class Siphon < Merb::Controller
         if doc.include? "error" # not found
           Entry.get(doc["key"]).push_to_queue
           @count += 1
-        elsif !is_complete? doc["doc"]
-          Entry.get(doc["key"]).push_to_queue(doc.missing_parts)
+        elsif !is_complete?(doc["doc"])
+          Entry.get(doc["key"]).push_to_queue(missing_parts(doc))
           @count += 1
         end
       end
@@ -204,21 +204,14 @@ class Siphon < Merb::Controller
   
 end
 
-module CouchRest
-  module DocumentTask
-    def is_complete?
-      missing_parts.blank?
-    end
 
-    def missing_parts
-      tasks = Set.new(["stanford", "shallow", "question"])
-      return tasks unless self.include? "tasks" and self["tasks"]
-  
-      (tasks - Set.new(self["tasks"].keys)) + tasks.select { |t| self[t].nil? }
-    end
-  end
-  
-  class Document
-    include DocumentTask
-  end
+def is_complete? doc
+  missing_parts(doc).blank?
+end
+
+def missing_parts doc
+  tasks = Set.new(["stanford", "shallow", "question"])
+  return tasks unless doc.include? "tasks" and doc["tasks"]
+
+  (tasks - Set.new(doc["tasks"].keys)) + tasks.select { |t| doc[t].nil? }
 end
