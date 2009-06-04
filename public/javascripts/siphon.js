@@ -1,6 +1,7 @@
 var Siphon = {
   load: function(state) {
     $('#items').empty()
+    if(typeof(state) == 'undefined') { state = "new" }
     $.getJSON('/load?state=' + state, 
       function(data) {
         $.each(data, function(i, item) {
