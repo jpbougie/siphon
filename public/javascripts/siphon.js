@@ -72,6 +72,7 @@ var Siphon = {
       elem.addClass('focus')
       elem.empty()
       elem.append(Siphon.formatFocused($(elem.get(0)).data('value')))
+      $('a[rel*=facebox]', elem).facebox()
     }
   },
   
@@ -80,6 +81,7 @@ var Siphon = {
     elem.removeClass('focus')
     elem.empty()
     elem.append(Siphon.format($(elem).data('value')))
+    $('a[rel*=facebox]', elem).facebox()
   },
   
   format: function(item) {

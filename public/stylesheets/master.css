@@ -27,9 +27,12 @@
 /*  float: right;*/
 }
 
+#items li.focus div.actions a {
+  padding-right: 10px;
+}
+
 #items li.focus a.accept {
   color: #36993B;
-  padding-right: 10px;
 }
 #items li.focus a.reject {
   color: #B81104;
