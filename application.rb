@@ -106,6 +106,10 @@ class Siphon < Merb::Controller
   def load
     if params.has_key? :state
       entries = Entry.all(:state => params[:state])
+      
+      if params[:state] == "new" and entries.length < 50
+        more
+      end
     else
       entries = Entry.all(:state => :new)
 
